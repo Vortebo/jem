@@ -1,1 +1,5 @@
 *.gbc
+*.pyc
+*.pyc
+/bootrom/__pycache__/*
+*.cpython-310.pyc

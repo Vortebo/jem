@@ -132,6 +132,7 @@ old_liscensee_codes = {
 '30': 'Infogrames',
 '31': 'Nintendo',
 '32': 'Bandai',
+'33': 'Refer to new liscensee code',
 '34': 'Konami',
 '35': 'HectorSoft',
 '38': 'Capcom',
