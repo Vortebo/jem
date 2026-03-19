@@ -1,4 +1,4 @@
-from lowlevel.hex_ops import HexValue
+import registers as rg
 
 class ROM:
     '''
@@ -9,15 +9,14 @@ class ROM:
         self.rom = rom
         self.bank = 0
 
-    def get(self, pc):
+    def get(self):
         # TODO: adjust pc to point to the correct bank
-        result = self.rom[pc.iget():pc.iget()+1].hex()
-        pc.inc()
+        result = self.rom[rg.pc.iget():rg.pc.iget()+1].hex()
+        rg.pc.inc()
         return result
 
-    def getrange(self, pc, length):
+    def getrange(self, length):
         result=''
         for i in range(length):
-            result += self.get(pc)
-            # pc.inc()
+            result += self.get()
         return result
