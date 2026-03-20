@@ -1,11 +1,13 @@
 import bootrom.header_codes as hc
 import lowlevel.registers as rg
 from lowlevel.memory import memory
+from lowlevel.rom_handler import rom
+from lowlevel.op_codes import optable
 
 def calc_checksum():
     return 1
 
-def boot_rom(rom):
+def boot_rom():
 
     # TODO: display Nintendo logo (this'll be a while)
     

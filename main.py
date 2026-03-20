@@ -10,7 +10,7 @@ def main():
     with open('pokegold.gbc',mode='rb') as file:
         rom.load_rom(file.read())
 
-    boot_flags = boot_rom(rom)
+    boot_flags = boot_rom()
 
 if __name__ == "__main__":
     main()

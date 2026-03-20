@@ -40,3 +40,9 @@ class Register(HexValue):
     def __init__(self):
         self.hi = HexValue('00000000')
         self.lo = HexValue('00000000')
+    
+    def inc(self): # Only HL can be increased this way
+        addr=self.hi.hget()+self.lo.hget()
+        new_addr=HexValue(addr).inc()
+        self.hi.set(new_addr[0:9])
+        self.lo.set(new_addr[9:16])
