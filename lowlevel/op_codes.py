@@ -97,6 +97,10 @@ optable = {
     '7e': partial(op.ld_reg_addr,rg.AF.hi),
     '7f': partial(op.ld_reg_reg,rg.AF.hi,rg.AF.hi),
     #
+    'e0': partial(op.ldh_addr_a),
+    'f0': partial(op.ldh_a_addr), # show ya moves
+    'e2': partial(op.ldh_c_a),
+    'f2': partial(op.ldh_a_c),
     'ea': partial(op.ld_addr_a), # it's in the game
     'fa': partial(op.ld_a_addr),
 

@@ -49,3 +49,19 @@ def ld_a_addr():
     addr = rom.get() + rom.get()
     rg.AF.hi.set(memory.get(addr))
     timer.tick(16)
+def ldh_addr_a():
+    addr = 'FF' + rom.get()
+    memory.set(addr,rg.AF.hi.hget())
+    timer.tick(12)
+def ldh_a_addr():
+    addr = 'FF' + rom.get()
+    rg.AF.hi.set(memory.get(addr))
+    timer.tick(12)
+def ldh_c_a():
+    addr = 'FF' + rg.BC.lo.hget()
+    memory.set(addr,rg.AF.hi.hget())
+    timer.tick(8)
+def ldh_a_c():
+    addr = 'FF' + rg.BC.lo.hget()
+    rg.AF.hi.set(memory.get(addr))
+    timer.tick(8)
