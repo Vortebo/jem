@@ -1,16 +1,7 @@
 import lowlevel.registers as rg
-from lowlevel.hex_ops import HexValue, Register
 from lowlevel.memory import memory
 from lowlevel.timer import timer
 from lowlevel.rom_handler import rom
-
-# Jumps
-def jp_addr():
-    dest = rom.get() + rom.get()
-    rg.pc.set(dest)
-    timer.tick(16)
-def jr():
-    jp_addr()
 
 # 8-bit loads
 def ld_addr_reg(dest,src,inc=0): # ld [bc], a
