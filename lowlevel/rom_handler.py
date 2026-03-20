@@ -5,9 +5,11 @@ class ROM:
     Documentation
     '''
 
-    def __init__(self, rom:bytearray):
-        self.rom = rom
+    def __init__(self):
         self.bank = 0
+
+    def load_rom(self, rom:bytearray):
+        self.rom = rom
 
     def get(self):
         # TODO: adjust pc to point to the correct bank
@@ -20,3 +22,5 @@ class ROM:
         for i in range(length):
             result += self.get()
         return result
+    
+rom=ROM()

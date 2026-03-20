@@ -1,6 +1,6 @@
 import bootrom.header_codes as hc
-# from lowlevel.hex_ops import HexValue
 import registers as rg
+from lowlevel.memory import memory
 
 def calc_checksum():
     return 1
