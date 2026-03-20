@@ -13,8 +13,10 @@ def main():
 
     boot_flags = boot_rom()
 
+    print(rg.pc.value)
     for i in range(300):
         optable[rom.get()]()
+        print(rg.pc.value)
 
 if __name__ == "__main__":
     main()

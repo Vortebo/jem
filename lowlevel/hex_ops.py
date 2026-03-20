@@ -17,6 +17,14 @@ class HexValue:
         '''
 
         self.value = hex(int(str(self.value),16)+1)
+
+    def dec(self):
+        '''
+        Safely decrements a variable holding what's meant to
+        be a hex value by one
+        '''
+
+        self.value = hex(int(str(self.value),16)-1)
     
     def iget(self):
         '''
@@ -44,5 +52,11 @@ class Register(HexValue):
     def inc(self): # Only HL can be increased this way
         addr=self.hi.hget()+self.lo.hget()
         new_addr=HexValue(addr).inc()
+        self.hi.set(new_addr[0:9])
+        self.lo.set(new_addr[9:16])
+
+    def dec(self):
+        addr=self.hi.hget()+self.lo.hget()
+        new_addr=HexValue(addr).dec()
         self.hi.set(new_addr[0:9])
         self.lo.set(new_addr[9:16])
