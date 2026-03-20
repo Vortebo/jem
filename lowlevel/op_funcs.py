@@ -4,10 +4,12 @@ from lowlevel.memory import memory
 from lowlevel.timer import timer
 from lowlevel.rom_handler import rom
 
-def jp(dest):
+def jp_addr():
+    dest = rom.get() + rom.get()
     rg.pc.set(dest)
-def jr(dest):
-    jp(dest)
+    timer.tick(16)
+def jr():
+    jp_addr()
 
 def ld_addr_a(dest,inc=0,elaps=8): # ld [bc], a
     addr = dest.hi.hget() + dest.lo.hget()

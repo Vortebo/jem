@@ -4,6 +4,7 @@ class SystemClock:
         self.time_since_x = 0 # not sure how many events or interrupts or whatever I'll need to keep track of
 
     def tick(self,elaps):
+        print('elapsing ',elaps,' ticks')
         self.time += elaps
         # if time > whatever, call interrupt, save pc location, etc
 

@@ -80,4 +80,6 @@ def boot_rom():
     glob_check = glob_check_2 + glob_check_1
     print('Global checksum (not used): ', int(glob_check,16))
 
+    rg.pc.set('0100')
+
     return None

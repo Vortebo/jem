@@ -41,7 +41,7 @@ class Membank:
         self.banks = [bank0,bankN,vram,eram,wram1,wram2,oam,ioreg,hram,ie]
 
     def address_adjust(self, address):
-        loc = address.iget()
+        loc = HexValue(address).iget()
         start=0
         for i in range(len(self.sizes)):
             if start <= loc < self.sizes[i]:
