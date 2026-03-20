@@ -1,5 +1,5 @@
 import bootrom.header_codes as hc
-import registers as rg
+import lowlevel.registers as rg
 from lowlevel.memory import memory
 
 def calc_checksum():

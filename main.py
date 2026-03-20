@@ -1,7 +1,7 @@
 # Josh's Cool Gameboy Emulator
 # import numpy as np
 # from lowlevel.hex_ops import HexValue, Register
-import registers as rg
+import lowlevel.registers as rg
 from lowlevel.rom_handler import rom
 from bootrom.bootrom import boot_rom
 

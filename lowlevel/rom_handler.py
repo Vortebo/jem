@@ -1,4 +1,4 @@
-import registers as rg
+import lowlevel.registers as rg
 
 class ROM:
     '''
