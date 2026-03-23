@@ -7,10 +7,11 @@ from functools import partial
 from lowlevel.timer import timer
 
 optable = {
-    '00': partial(timer.tick,4),
-    # '02': #
-    # '12': 
-    ####### 8-bit load instructions
+    ####### misc
+    '00': partial(timer.tick,4), # NOP
+    '76': partial(print,'HALLLLTTTT'), # HALT
+
+    ####### 8-bit ld
     '02': partial(ld.ld_addr_reg,rg.BC,rg.AF.hi),
     '06': partial(ld.ld_reg_arg,rg.BC.hi),
     '0a': partial(ld.ld_reg_addr,rg.AF.hi,rg.BC),
@@ -88,7 +89,7 @@ optable = {
     '73': partial(ld.ld_addr_reg,rg.HL,rg.DE.lo),
     '74': partial(ld.ld_addr_reg,rg.HL,rg.HL.hi),
     '75': partial(ld.ld_addr_reg,rg.HL,rg.HL.lo),
-    '76': partial(print,'HALLLLTTTT'),
+    # see misc
     '77': partial(ld.ld_addr_reg,rg.HL,rg.AF.hi),
     #
     '78': partial(ld.ld_reg_reg,rg.AF.hi,rg.BC.hi),
@@ -121,13 +122,23 @@ optable = {
     '34': partial(mt.inc_addr),
     '3c': partial(mt.inc_reg,rg.AF.hi),
     ### add
-    '70': partial(mt.add_a_reg,rg.BC.hi),
-    '71': partial(mt.add_a_reg,rg.BC.lo),
-    '72': partial(mt.add_a_reg,rg.DE.hi),
-    '73': partial(mt.add_a_reg,rg.DE.lo),
-    '74': partial(mt.add_a_reg,rg.HL.hi),
-    '75': partial(mt.add_a_reg,rg.HL.lo),
-    '76': partial(mt.add_a_addr),
-    '77': partial(mt.add_a_reg,rg.AF.hi),
+    '80': partial(mt.add_a_reg,rg.BC.hi),
+    '81': partial(mt.add_a_reg,rg.BC.lo),
+    '82': partial(mt.add_a_reg,rg.DE.hi),
+    '83': partial(mt.add_a_reg,rg.DE.lo),
+    '84': partial(mt.add_a_reg,rg.HL.hi),
+    '85': partial(mt.add_a_reg,rg.HL.lo),
+    '86': partial(mt.add_a_addr),
+    '87': partial(mt.add_a_reg,rg.AF.hi),
     'c6': partial(mt.add_a_arg),
+    ### adc
+    '88': partial(mt.add_a_reg,rg.BC.hi,True),
+    '89': partial(mt.add_a_reg,rg.BC.lo,True),
+    '8a': partial(mt.add_a_reg,rg.DE.hi,True),
+    '8b': partial(mt.add_a_reg,rg.DE.lo,True),
+    '8c': partial(mt.add_a_reg,rg.HL.hi,True),
+    '8d': partial(mt.add_a_reg,rg.HL.lo,True),
+    '8e': partial(mt.add_a_addr,True),
+    '8f': partial(mt.add_a_reg,rg.AF.hi,True),
+    'ce': partial(mt.add_a_arg,True),
 }
