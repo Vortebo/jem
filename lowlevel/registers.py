@@ -5,3 +5,8 @@ BC = Register()
 DE = Register()
 HL = Register()
 pc = HexValue('0')
+
+zFlag = False
+nFlag = False
+hFlag = False
+cFlag = False

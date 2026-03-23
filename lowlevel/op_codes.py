@@ -1,5 +1,6 @@
 import lowlevel.instruct.loads as ld
 import lowlevel.instruct.jumps as jp
+import lowlevel.instruct.math as mt
 
 import lowlevel.registers as rg
 from functools import partial
@@ -106,5 +107,16 @@ optable = {
     'ea': partial(ld.ld_addr_a), # it's in the game
     'fa': partial(ld.ld_a_addr),
 
+    # yump
     'c3': partial(jp.jp_addr),
+
+    ####### 8-bit math
+    '04': partial(mt.inc_reg,rg.BC.hi),
+    '0c': partial(mt.inc_reg,rg.BC.lo),
+    '14': partial(mt.inc_reg,rg.DE.hi),
+    '1c': partial(mt.inc_reg,rg.DE.lo),
+    '24': partial(mt.inc_reg,rg.HL.hi),
+    '2c': partial(mt.inc_reg,rg.HL.lo),
+    '34': partial(mt.inc_addr),
+    '3c': partial(mt.inc_reg,rg.AF.hi),
 }
