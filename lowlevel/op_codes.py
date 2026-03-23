@@ -111,6 +111,7 @@ optable = {
     'c3': partial(jp.jp_addr),
 
     ####### 8-bit math
+    ### inc
     '04': partial(mt.inc_reg,rg.BC.hi),
     '0c': partial(mt.inc_reg,rg.BC.lo),
     '14': partial(mt.inc_reg,rg.DE.hi),
@@ -119,4 +120,14 @@ optable = {
     '2c': partial(mt.inc_reg,rg.HL.lo),
     '34': partial(mt.inc_addr),
     '3c': partial(mt.inc_reg,rg.AF.hi),
+    ### add
+    '70': partial(mt.add_a_reg,rg.BC.hi),
+    '71': partial(mt.add_a_reg,rg.BC.lo),
+    '72': partial(mt.add_a_reg,rg.DE.hi),
+    '73': partial(mt.add_a_reg,rg.DE.lo),
+    '74': partial(mt.add_a_reg,rg.HL.hi),
+    '75': partial(mt.add_a_reg,rg.HL.lo),
+    '76': partial(mt.add_a_addr),
+    '77': partial(mt.add_a_reg,rg.AF.hi),
+    'c6': partial(mt.add_a_arg),
 }
