@@ -21,27 +21,42 @@ def add8(val1,val2,cflag=False,pluscarry=False):
         rg.zFlag = True if val1 == '00' else False
     rg.nFlag = False
     return val1
-def inc_reg(reg):
+def sub8(val1,val2,cflag=False,pluscarry=False):
+    val1 = val1.split('x')[1] if 'x' in val1 else val1
+    val2 = val2.split('x')[1] if 'x' in val2 else val2
+    rg.hFlag = True if int(val1[-4:],16) < int(val2[:-4],16) else False
+    carry = 1 if pluscarry else 0
+    minus = int(val2,16) + carry
+    if cflag:
+        rg.cFlag = True if minus > int(val1,16) else False
+    val1 = int(val1,16) - minus
+    rg.zFlag = True if val1 == 0 else False #TODO: this all seems inefficient
+    rg.nFlag = True
+    val1 = 256 + val1 if val1 < 0 else val1
+    val1 = hex(val1)
+    return val1
+
+def mod_reg(func,reg):
     '''
-    Incs a reg
+    Mods a reg
     '''
-    reg.set(add8(reg.hget(),'1'))
+    reg.set(func(reg.hget(),'1'))
     timer.tick(4)
-def inc_addr():
+def mod_addr(func):
     '''
-    Increment the byte pointed to by [HL] by 1 (oops, that's the same wording as the rgbds docs)
+    Modcrement the byte pointed to by [HL] by 1
     '''
     addr = rg.HL.hi.hget() + rg.HL.lo.hget()
-    memory.set(addr,add8(memory.get(addr),'1'))
+    memory.set(addr,func(memory.get(addr),'1'))
     timer.tick(12)
-def add_a_reg(reg,pluscarry=False):
-    rg.AF.hi.set(add8(rg.AF.hi.hget(),reg.hget(),True,pluscarry))
+def mod_a_reg(func,reg,pluscarry=False):
+    rg.AF.hi.set(func(rg.AF.hi.hget(),reg.hget(),True,pluscarry))
     timer.tick(4)
-def add_a_addr(pluscarry=False):
+def mod_a_addr(func,pluscarry=False):
     addr = rg.HL.hi.hget() + rg.HL.lo.hget()
-    rg.AF.hi.set(add8(rg.AF.hi.hget(),memory.get(addr),True,pluscarry))
+    rg.AF.hi.set(func(rg.AF.hi.hget(),memory.get(addr),True,pluscarry))
     timer.tick(8)
-def add_a_arg(pluscarry=False):
+def mod_a_arg(func,pluscarry=False):
     src = rom.get()
-    rg.AF.hi.set(add8(rg.AF.hi.hget(),src,True,pluscarry))
+    rg.AF.hi.set(func(rg.AF.hi.hget(),src,True,pluscarry))
     timer.tick(8)
