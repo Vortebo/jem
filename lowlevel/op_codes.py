@@ -170,4 +170,14 @@ optable = {
     '9e': partial(mt.mod_a_addr,mt.sub8,True),
     '9f': partial(mt.mod_a_reg,mt.sub8,rg.AF.hi,True),
     'de': partial(mt.mod_a_arg,mt.sub8,True),
+    ### and
+    'a0': partial(mt.and_reg,rg.BC.hi),
+    'a1': partial(mt.and_reg,rg.BC.lo),
+    'a2': partial(mt.and_reg,rg.DE.hi),
+    'a3': partial(mt.and_reg,rg.DE.lo),
+    'a4': partial(mt.and_reg,rg.HL.hi),
+    'a5': partial(mt.and_reg,rg.HL.lo),
+    'a6': partial(mt.and_addr),
+    'a7': partial(mt.and_reg,rg.AF.hi),
+    'e6': partial(mt.and_arg),
 }

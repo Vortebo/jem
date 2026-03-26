@@ -35,7 +35,6 @@ def sub8(val1,val2,cflag=False,pluscarry=False):
     val1 = 256 + val1 if val1 < 0 else val1
     val1 = hex(val1)
     return val1
-
 def mod_reg(func,reg):
     '''
     Mods a reg
@@ -47,16 +46,40 @@ def mod_addr(func):
     Modcrement the byte pointed to by [HL] by 1
     '''
     addr = rg.HL.hi.hget() + rg.HL.lo.hget()
-    memory.set(addr,func(memory.get(addr),'1'))
+    memory.set(addr,func(memory.get(addr).hget(),'1'))
     timer.tick(12)
 def mod_a_reg(func,reg,pluscarry=False):
     rg.AF.hi.set(func(rg.AF.hi.hget(),reg.hget(),True,pluscarry))
     timer.tick(4)
 def mod_a_addr(func,pluscarry=False):
     addr = rg.HL.hi.hget() + rg.HL.lo.hget()
-    rg.AF.hi.set(func(rg.AF.hi.hget(),memory.get(addr),True,pluscarry))
+    rg.AF.hi.set(func(rg.AF.hi.hget(),memory.get(addr).hget(),True,pluscarry))
     timer.tick(8)
 def mod_a_arg(func,pluscarry=False):
     src = rom.get()
     rg.AF.hi.set(func(rg.AF.hi.hget(),src,True,pluscarry))
+    timer.tick(8)
+
+def and_reg(reg):
+    rg.AF.hi.set(hex(rg.AF.hi.iget() & reg.iget()))
+    rg.zFlag = True if rg.AF.hi.iget() == 0 else False
+    rg.nFlag = False
+    rg.hFlag = True
+    rg.cFlag = False
+    timer.tick(4)
+def and_addr():
+    addr = rg.HL.hi.hget() + rg.HL.lo.hget()
+    rg.AF.hi.set(hex(rg.AF.hi.iget() & memory.get(addr).iget()))
+    rg.zFlag = True if rg.AF.hi.iget() == 0 else False
+    rg.nFlag = False
+    rg.hFlag = True
+    rg.cFlag = False
+    timer.tick(8)
+def and_arg():
+    src = rom.get()
+    rg.AF.hi.set(hex(rg.AF.hi.iget() & int(src,16)))
+    rg.zFlag = True if rg.AF.hi.iget() == 0 else False
+    rg.nFlag = False
+    rg.hFlag = True
+    rg.cFlag = False
     timer.tick(8)
