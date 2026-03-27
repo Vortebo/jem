@@ -60,7 +60,7 @@ def mod_a_addr(func,pluscarry=False,comp=False):
         rg.AF.hi.set(new_val)
     timer.tick(8)
 def mod_a_arg(func,pluscarry=False,comp=False):
-    src = rom.get()
+    src = memory.getNext()
     new_val = func(rg.AF.hi.hget(),src,True,pluscarry)
     if not comp:
         rg.AF.hi.set(new_val)
@@ -82,7 +82,7 @@ def and_addr():
     rg.cFlag = False
     timer.tick(8)
 def and_arg():
-    src = rom.get()
+    src = memory.getNext()
     rg.AF.hi.set(hex(rg.AF.hi.iget() & int(src,16)))
     rg.zFlag = True if rg.AF.hi.iget() == 0 else False
     rg.nFlag = False
@@ -105,7 +105,7 @@ def xor_addr():
     rg.cFlag = False
     timer.tick(8)
 def xor_arg():
-    src = rom.get()
+    src = memory.getNext()
     rg.AF.hi.set(hex(rg.AF.hi.iget() ^ int(src,16)))
     rg.zFlag = True if rg.AF.hi.iget() == 0 else False
     rg.nFlag = False
@@ -128,7 +128,7 @@ def or_addr():
     rg.cFlag = False
     timer.tick(8)
 def or_arg():
-    src = rom.get()
+    src = memory.getNext()
     rg.AF.hi.set(hex(rg.AF.hi.iget() | int(src,16)))
     rg.zFlag = True if rg.AF.hi.iget() == 0 else False
     rg.nFlag = False

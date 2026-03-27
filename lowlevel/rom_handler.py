@@ -11,7 +11,7 @@ class ROM:
     def load_rom(self, rom:bytearray):
         self.rom = rom
 
-    def get(self):
+    def getNext(self):
         # TODO: adjust pc to point to the correct bank
         result = self.rom[rg.pc.iget():rg.pc.iget()+1].hex()
         rg.pc.inc()
@@ -20,7 +20,10 @@ class ROM:
     def getrange(self, length):
         result=''
         for i in range(length):
-            result += self.get()
+            result += self.getNext()
         return result
+    
+    def get(self, address):
+        print('todo')
     
 rom=ROM()

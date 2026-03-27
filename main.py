@@ -11,13 +11,11 @@ def main():
     with open('Tetris.gb',mode='rb') as file:
         rom.load_rom(file.read())
 
-    print(len(rom.rom))
-    return
     boot_flags = boot_rom()
 
     print(rg.pc.value)
     for i in range(300):
-        optable[rom.get()]()
+        optable[rom.getNext()]()
         print(rg.pc.value)
 
 if __name__ == "__main__":

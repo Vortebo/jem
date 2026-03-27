@@ -1,13 +1,14 @@
 from lowlevel.hex_ops import HexValue, Register
+from lowlevel.rom_handler import rom
 
 #memory class, handles converting memory addresses to what my arrays understand
 class Membank:
     def __init__(self):
         bank0size = 16384
-        bank0 = bytearray(bank0size)
+        bank0 = None#bytearray(bank0size)
 
         bankNsize = 16384
-        bankN = bytearray(bankNsize)
+        bankN = None#bytearray(bankNsize)
 
         vramsize = 8192 # switchable bank 0/1  in CGB
         vram = bytearray(vramsize)
@@ -44,14 +45,21 @@ class Membank:
         loc = HexValue(address).iget()
         start=0
         for i in range(len(self.sizes)):
-            if start <= loc < self.sizes[i]:
+            if start <= loc < self.sizes[i] + start:
                 return loc - start, i
-            start = self.sizes[i]
+            start += self.sizes[i]
         return -1
     
     def get(self, address):
         loc, bank = self.address_adjust(address)
+        if bank < 2:
+            return rom.get(address)
         return HexValue(self.banks[bank][loc])
+    
+    def getNext(self):
+        return rom.getNext()
+    def getrange(self, length):
+        return rom.getrange(length)
 
     def set(self, address, value):
         loc, bank = self.address_adjust(address)
