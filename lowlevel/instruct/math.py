@@ -136,6 +136,27 @@ def or_arg():
     rg.cFlag = False
     timer.tick(8)
 
+def daa():
+    adjust = 0
+    flagStates = [rg.nFlag, rg.cFlag]
+    if rg.nFlag:
+        if rg.hFlag:
+            adjust = adjust + 6
+        if rg.cFlag:
+            adjust = adjust + int('60',16)
+        rg.AF.hi.set(sub8(rg.AF.hi.hget(),hex(adjust),False,False))
+    else:
+        if rg.hFlag or (rg.AF.hi.iget() & int('F',16))>9:
+            adjust = adjust + 6
+        if rg.cFlag or rg.AF.hi.iget() > int('99',16):
+            adjust = adjust + int('60',16)
+            flagStates[1] = True
+        rg.AF.hi.set(add8(rg.AF.hi.hget(),hex(adjust),False,False))
+    rg.zFlag = True if rg.AF.hi.iget() == 0 else False
+    rg.nFlag = flagStates[0]
+    rg.hFlag = False
+    rg.cFlag = flagStates[1]
+    timer.tick(4)
 def cpl():
     rg.AF.hi.set(hex(~(rg.AF.hi.iget())))
     rg.nFlag = True

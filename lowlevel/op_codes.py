@@ -211,7 +211,7 @@ optable = {
     'bf': partial(mt.mod_a_reg,mt.sub8,rg.AF.hi,comp=True), # TODO: check flags
     'fe': partial(mt.mod_a_arg,mt.sub8,comp=True),
     ### misc
-    '27': partial(print,'do i have to do this one?'), # daa
+    '27': partial(mt.daa), # daa
     '2f': partial(mt.cpl), # cpl
     '37': partial(mt.scf), # scf
     '3f': partial(mt.ccf), # ccf
