@@ -8,9 +8,11 @@ from lowlevel.op_codes import optable
 
 def main():
     # load rom
-    with open('pokegold.gbc',mode='rb') as file:
+    with open('Tetris.gb',mode='rb') as file:
         rom.load_rom(file.read())
 
+    print(len(rom.rom))
+    return
     boot_flags = boot_rom()
 
     print(rg.pc.value)
