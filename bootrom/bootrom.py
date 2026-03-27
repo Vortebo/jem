@@ -34,8 +34,10 @@ def boot_rom():
                     else 'DMG'
     print('CGB flag: ', cgb_status)
 
-    liscensee_code_1 = memory.getNext()
-    liscensee_code_2 = memory.getNext()
+    liscensee_code_1 = memory.get(rg.pc.iget())
+    rg.pc.inc()
+    liscensee_code_2 = memory.get(rg.pc.iget())
+    rg.pc.inc()
     try:
         liscensee_code = hc.new_liscensee_codes[liscensee_code_2]
     except:
@@ -43,40 +45,50 @@ def boot_rom():
         liscensee_code = 'Publisher not found. May be old liscensee code.'
     print('New liscensee code: ',liscensee_code)
 
-    sgb_flag = memory.getNext()
+    sgb_flag = memory.get(rg.pc.iget())
+    rg.pc.inc()
     sgb_status = 'SGB supported' if sgb_flag == '03' else 'SGB unsupported'
     print(sgb_status)
 
-    cart_type = memory.getNext()
+    cart_type = memory.get(rg.pc.iget())
+    rg.pc.inc()
     cart_type = '$'+str(cart_type)
     print('Cartridge type: ',hc.cartridge_types[cart_type])
 
-    rom_size = int(memory.getNext())
+    rom_size = int(memory.get(rg.pc.iget()))
+    rg.pc.inc()
     print('ROM size: ',32*2**rom_size,' KiB')
 
-    ram_type = memory.getNext()
+    ram_type = memory.get(rg.pc.iget())
+    rg.pc.inc()
     ram_type = '$'+str(ram_type)
     if hc.cartridge_types[cart_type].find('RAM') == -1 and ram_type != '$00':
         raise Exception('RAM inconsistency')
     print('RAM size: ',hc.ram_sizes[ram_type])
 
-    dest = memory.getNext()
+    dest = memory.get(rg.pc.iget())
+    rg.pc.inc()
     dest = '$'+str(dest)
     print('Destination: ',hc.destination[dest])
 
-    olc = memory.getNext()
+    olc = memory.get(rg.pc.iget())
+    rg.pc.inc()
     liscensee_code = hc.old_liscensee_codes[olc]
 
-    game_ver = memory.getNext()
+    game_ver = memory.get(rg.pc.iget())
+    rg.pc.inc()
     print('Game version: ', game_ver)
 
-    checksum = memory.getNext()
+    checksum = memory.get(rg.pc.iget())
+    rg.pc.inc()
     correct_checksum = calc_checksum()
     print('Header checksum: ', checksum)
     print('Checksum check not implemented.. sum')
 
-    glob_check_1 = memory.getNext()
-    glob_check_2 = memory.getNext()
+    glob_check_1 = memory.get(rg.pc.iget())
+    rg.pc.inc()
+    glob_check_2 = memory.get(rg.pc.iget())
+    rg.pc.inc()
     glob_check = glob_check_2 + glob_check_1
     print('Global checksum (not used): ', int(glob_check,16))
 

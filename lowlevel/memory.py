@@ -54,7 +54,7 @@ class Membank:
         loc, bank = self.address_adjust(address)
         if bank < 2:
             return rom.get(address)
-        return HexValue(self.banks[bank][loc])
+        return HexValue(self.banks[bank][loc]).hget()
     
     def getNext(self):
         return rom.getNext()

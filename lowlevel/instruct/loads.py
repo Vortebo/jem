@@ -21,31 +21,43 @@ def ld_reg_addr(dest,src,inc=0): # ld a, [bc]
         rg.HL.dec()
     timer.tick(8)
 def ld_reg_arg(dest):          # ld b, n8
-    src = memory.getNext()
+    src = memory.get(rg.pc.iget())
+    rg.pc.inc()
     dest.set(src)
     timer.tick(8)
 def ld_addr_arg(): 
     addr = rg.HL.hi.hget() + rg.HL.lo.hget()
-    src = memory.getNext()
+    src = memory.get(rg.pc.iget())
+    rg.pc.inc()
     memory.set(addr,src)
     timer.tick(12)
 def ld_reg_reg(dest,src):          # ld b, b
     dest.set(src.hget())
     timer.tick(4)
 def ld_addr_a():
-    addr = memory.getNext() + memory.getNext()
+    addr1 = memory.get(rg.pc.iget())
+    rg.pc.inc()
+    addr2 = memory.get(rg.pc.iget())
+    rg.pc.inc()
+    addr = addr1 + addr2
     memory.set(addr,rg.AF.hi.hget())
     timer.tick(16)
 def ld_a_addr():
-    addr = memory.getNext() + memory.getNext()
+    addr1 = memory.get(rg.pc.iget())
+    rg.pc.inc()
+    addr2 = memory.get(rg.pc.iget())
+    rg.pc.inc()
+    addr = addr1 + addr2
     rg.AF.hi.set(memory.get(addr))
     timer.tick(16)
 def ldh_addr_a():
-    addr = 'FF' + memory.getNext()
+    addr = 'FF' + memory.get(rg.pc.iget())
+    rg.pc.inc()
     memory.set(addr,rg.AF.hi.hget())
     timer.tick(12)
 def ldh_a_addr():
-    addr = 'FF' + memory.getNext()
+    addr = 'FF' + memory.get(rg.pc.iget())
+    rg.pc.inc()
     rg.AF.hi.set(memory.get(addr))
     timer.tick(12)
 def ldh_c_a():
