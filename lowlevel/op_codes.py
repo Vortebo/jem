@@ -190,4 +190,14 @@ optable = {
     'ae': partial(mt.xor_addr),
     'af': partial(mt.xor_reg,rg.AF.hi),
     'ee': partial(mt.xor_arg),
+    ### or
+    'a0': partial(mt.or_reg,rg.BC.hi),
+    'a1': partial(mt.or_reg,rg.BC.lo),
+    'a2': partial(mt.or_reg,rg.DE.hi),
+    'a3': partial(mt.or_reg,rg.DE.lo),
+    'a4': partial(mt.or_reg,rg.HL.hi),
+    'a5': partial(mt.or_reg,rg.HL.lo),
+    'a6': partial(mt.or_addr),
+    'a7': partial(mt.or_reg,rg.AF.hi),
+    'e6': partial(mt.or_arg),
 }

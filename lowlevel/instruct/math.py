@@ -83,7 +83,6 @@ def and_arg():
     rg.hFlag = True
     rg.cFlag = False
     timer.tick(8)
-
 def xor_reg(reg):
     rg.AF.hi.set(hex(rg.AF.hi.iget() ^ reg.iget()))
     rg.zFlag = True if rg.AF.hi.iget() == 0 else False
@@ -102,6 +101,29 @@ def xor_addr():
 def xor_arg():
     src = rom.get()
     rg.AF.hi.set(hex(rg.AF.hi.iget() ^ int(src,16)))
+    rg.zFlag = True if rg.AF.hi.iget() == 0 else False
+    rg.nFlag = False
+    rg.hFlag = False
+    rg.cFlag = False
+    timer.tick(8)
+def or_reg(reg):
+    rg.AF.hi.set(hex(rg.AF.hi.iget() | reg.iget()))
+    rg.zFlag = True if rg.AF.hi.iget() == 0 else False
+    rg.nFlag = False
+    rg.hFlag = False
+    rg.cFlag = False
+    timer.tick(4)
+def or_addr():
+    addr = rg.HL.hi.hget() + rg.HL.lo.hget()
+    rg.AF.hi.set(hex(rg.AF.hi.iget() | memory.get(addr).iget()))
+    rg.zFlag = True if rg.AF.hi.iget() == 0 else False
+    rg.nFlag = False
+    rg.hFlag = False
+    rg.cFlag = False
+    timer.tick(8)
+def or_arg():
+    src = rom.get()
+    rg.AF.hi.set(hex(rg.AF.hi.iget() | int(src,16)))
     rg.zFlag = True if rg.AF.hi.iget() == 0 else False
     rg.nFlag = False
     rg.hFlag = False
