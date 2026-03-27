@@ -158,7 +158,7 @@ optable = {
     '94': partial(mt.mod_a_reg,mt.sub8,rg.HL.hi),
     '95': partial(mt.mod_a_reg,mt.sub8,rg.HL.lo),
     '96': partial(mt.mod_a_addr,mt.sub8),
-    '97': partial(mt.mod_a_reg,mt.sub8,rg.AF.hi),
+    '97': partial(mt.mod_a_reg,mt.sub8,rg.AF.hi), # TODO: check flags
     'd6': partial(mt.mod_a_arg,mt.sub8),
     ### sbc
     '98': partial(mt.mod_a_reg,mt.sub8,rg.BC.hi,True),
@@ -168,7 +168,7 @@ optable = {
     '9c': partial(mt.mod_a_reg,mt.sub8,rg.HL.hi,True),
     '9d': partial(mt.mod_a_reg,mt.sub8,rg.HL.lo,True),
     '9e': partial(mt.mod_a_addr,mt.sub8,True),
-    '9f': partial(mt.mod_a_reg,mt.sub8,rg.AF.hi,True),
+    '9f': partial(mt.mod_a_reg,mt.sub8,rg.AF.hi,True), # TODO: check flags
     'de': partial(mt.mod_a_arg,mt.sub8,True),
     ### and
     'a0': partial(mt.and_reg,rg.BC.hi),
@@ -188,16 +188,26 @@ optable = {
     'ac': partial(mt.xor_reg,rg.HL.hi),
     'ad': partial(mt.xor_reg,rg.HL.lo),
     'ae': partial(mt.xor_addr),
-    'af': partial(mt.xor_reg,rg.AF.hi),
+    'af': partial(mt.xor_reg,rg.AF.hi), # TODO: check flags
     'ee': partial(mt.xor_arg),
     ### or
-    'a0': partial(mt.or_reg,rg.BC.hi),
-    'a1': partial(mt.or_reg,rg.BC.lo),
-    'a2': partial(mt.or_reg,rg.DE.hi),
-    'a3': partial(mt.or_reg,rg.DE.lo),
-    'a4': partial(mt.or_reg,rg.HL.hi),
-    'a5': partial(mt.or_reg,rg.HL.lo),
-    'a6': partial(mt.or_addr),
-    'a7': partial(mt.or_reg,rg.AF.hi),
-    'e6': partial(mt.or_arg),
+    'b0': partial(mt.or_reg,rg.BC.hi),
+    'b1': partial(mt.or_reg,rg.BC.lo),
+    'b2': partial(mt.or_reg,rg.DE.hi),
+    'b3': partial(mt.or_reg,rg.DE.lo),
+    'b4': partial(mt.or_reg,rg.HL.hi),
+    'b5': partial(mt.or_reg,rg.HL.lo),
+    'b6': partial(mt.or_addr),
+    'b7': partial(mt.or_reg,rg.AF.hi),
+    'f6': partial(mt.or_arg),
+    ### cp
+    'b8': partial(mt.mod_a_reg,mt.sub8,rg.BC.hi,comp=True),
+    'b9': partial(mt.mod_a_reg,mt.sub8,rg.BC.lo,comp=True),
+    'ba': partial(mt.mod_a_reg,mt.sub8,rg.DE.hi,comp=True),
+    'bb': partial(mt.mod_a_reg,mt.sub8,rg.DE.lo,comp=True),
+    'bc': partial(mt.mod_a_reg,mt.sub8,rg.HL.hi,comp=True),
+    'bd': partial(mt.mod_a_reg,mt.sub8,rg.HL.lo,comp=True),
+    'be': partial(mt.mod_a_addr,mt.sub8,comp=True),
+    'bf': partial(mt.mod_a_reg,mt.sub8,rg.AF.hi,comp=True), # TODO: check flags
+    'fe': partial(mt.mod_a_arg,mt.sub8,comp=True),
 }

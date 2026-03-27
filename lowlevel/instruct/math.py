@@ -48,16 +48,22 @@ def mod_addr(func):
     addr = rg.HL.hi.hget() + rg.HL.lo.hget()
     memory.set(addr,func(memory.get(addr).hget(),'1'))
     timer.tick(12)
-def mod_a_reg(func,reg,pluscarry=False):
-    rg.AF.hi.set(func(rg.AF.hi.hget(),reg.hget(),True,pluscarry))
+def mod_a_reg(func,reg,pluscarry=False,comp=False):
+    new_val = func(rg.AF.hi.hget(),reg.hget(),True,pluscarry)
+    if not comp:
+        rg.AF.hi.set(new_val)
     timer.tick(4)
-def mod_a_addr(func,pluscarry=False):
+def mod_a_addr(func,pluscarry=False,comp=False):
     addr = rg.HL.hi.hget() + rg.HL.lo.hget()
-    rg.AF.hi.set(func(rg.AF.hi.hget(),memory.get(addr).hget(),True,pluscarry))
+    new_val = func(rg.AF.hi.hget(),memory.get(addr).hget(),True,pluscarry)
+    if not comp:
+        rg.AF.hi.set(new_val)
     timer.tick(8)
-def mod_a_arg(func,pluscarry=False):
+def mod_a_arg(func,pluscarry=False,comp=False):
     src = rom.get()
-    rg.AF.hi.set(func(rg.AF.hi.hget(),src,True,pluscarry))
+    new_val = func(rg.AF.hi.hget(),src,True,pluscarry)
+    if not comp:
+        rg.AF.hi.set(new_val)
     timer.tick(8)
 
 def and_reg(reg):
