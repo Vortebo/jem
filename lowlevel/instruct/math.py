@@ -135,3 +135,19 @@ def or_arg():
     rg.hFlag = False
     rg.cFlag = False
     timer.tick(8)
+
+def cpl():
+    rg.AF.hi.set(hex(~(rg.AF.hi.iget())))
+    rg.nFlag = True
+    rg.hFlag = True
+    timer.tick(4)
+def scf():
+    rg.nFlag = False
+    rg.hFlag = False
+    rg.cFlag = True
+    timer.tick(4)
+def ccf():
+    rg.nFlag = False
+    rg.hFlag = False
+    rg.cFlag = not rg.cFlag
+    timer.tick(4)
