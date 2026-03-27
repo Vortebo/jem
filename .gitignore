@@ -1,4 +1,5 @@
 *.gbc
+*.gb
 *.pyc
 *.pyc
 /bootrom/__pycache__/*

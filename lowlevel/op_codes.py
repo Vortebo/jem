@@ -180,4 +180,14 @@ optable = {
     'a6': partial(mt.and_addr),
     'a7': partial(mt.and_reg,rg.AF.hi),
     'e6': partial(mt.and_arg),
+    ### xor
+    'a8': partial(mt.xor_reg,rg.BC.hi),
+    'a9': partial(mt.xor_reg,rg.BC.lo),
+    'aa': partial(mt.xor_reg,rg.DE.hi),
+    'ab': partial(mt.xor_reg,rg.DE.lo),
+    'ac': partial(mt.xor_reg,rg.HL.hi),
+    'ad': partial(mt.xor_reg,rg.HL.lo),
+    'ae': partial(mt.xor_addr),
+    'af': partial(mt.xor_reg,rg.AF.hi),
+    'ee': partial(mt.xor_arg),
 }
