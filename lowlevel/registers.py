@@ -4,6 +4,7 @@ AF = Register()
 BC = Register()
 DE = Register()
 HL = Register()
+SP = Register()
 pc = HexValue('0')
 
 zFlag = False

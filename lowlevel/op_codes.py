@@ -1,6 +1,7 @@
 import lowlevel.instruct.loads as ld
 import lowlevel.instruct.jumps as jp
-import lowlevel.instruct.math as mt
+import lowlevel.instruct.math8 as mt
+import lowlevel.instruct.math16 as mh
 
 import lowlevel.registers as rg
 from functools import partial
@@ -215,4 +216,16 @@ optable = {
     '2f': partial(mt.cpl), # cpl
     '37': partial(mt.scf), # scf
     '3f': partial(mt.ccf), # ccf
+
+    ####### 16-bit math
+    ### inc
+    '03': partial(mh.inc_reg,rg.BC),
+    '13': partial(mh.inc_reg,rg.DE),
+    '23': partial(mh.inc_reg,rg.HL),
+    '33': partial(mh.inc_reg,rg.SP),
+    ### dec
+    '0b': partial(mh.dec_reg,rg.BC),
+    '1b': partial(mh.dec_reg,rg.DE),
+    '2b': partial(mh.dec_reg,rg.HL),
+    '3b': partial(mh.dec_reg,rg.SP),
 }
