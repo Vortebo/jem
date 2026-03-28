@@ -24,7 +24,7 @@ class ROM:
         return result
     
     def get(self, address):
-        address = int(address)
+        address = int(address,16)
         return self.rom[(address):address+1].hex()
     
 rom=ROM()

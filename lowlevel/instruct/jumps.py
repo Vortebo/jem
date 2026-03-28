@@ -5,11 +5,12 @@ from lowlevel.memory import memory
 
 # Jumps
 def jp_addr():
-    dest1 = memory.get(rg.pc.iget())
+    dest1 = memory.get(rg.pc.hget())
     rg.pc.inc()
-    dest2 = memory.get(rg.pc.iget())
+    dest2 = memory.get(rg.pc.hget())
     rg.pc.inc()
     dest = dest1 + dest2
+    print('destination is',dest)
     rg.pc.set(dest)
     timer.tick(16)
 def jr():

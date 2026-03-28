@@ -52,12 +52,11 @@ class Membank:
     
     def get(self, address):
         loc, bank = self.address_adjust(address)
+        print(loc,bank)
         if bank < 2:
             return rom.get(address)
-        return HexValue(self.banks[bank][loc]).hget()
+        return HexValue(self.banks[bank][loc:loc+1].hex()).hget()
     
-    def getNext(self):
-        return rom.getNext()
     def getrange(self, length):
         return rom.getrange(length)
 
