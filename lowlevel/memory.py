@@ -55,7 +55,7 @@ class Membank:
         print(loc,bank)
         if bank < 2:
             return rom.get(address)
-        return HexValue(self.banks[bank][loc:loc+1].hex()).hget()
+        return HexValue(self.banks[bank][loc:loc+1].hex())
     
     def getrange(self, length):
         return rom.getrange(length)

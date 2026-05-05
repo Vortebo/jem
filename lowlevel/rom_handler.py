@@ -1,4 +1,5 @@
 import lowlevel.registers as rg
+from lowlevel.hex_ops import HexValue
 
 class ROM:
     '''
@@ -25,6 +26,6 @@ class ROM:
     
     def get(self, address):
         address = int(address,16)
-        return self.rom[(address):address+1].hex()
+        return HexValue(self.rom[(address):address+1].hex())
     
 rom=ROM()

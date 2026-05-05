@@ -16,8 +16,8 @@ def main():
     rg.pc.set('0100')
 
     for i in range(20):
-        print('getting opcode from',rg.pc.value)
-        op = memory.get(rg.pc.hget())
+        print(f'getting opcode from 0x{rg.pc.value}')
+        op = memory.get(rg.pc.hget()).hget()
         rg.pc.inc()
         print('retrieved opcode is ',op)
         optable[op]()
