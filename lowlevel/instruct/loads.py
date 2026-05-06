@@ -6,7 +6,7 @@ from lowlevel.rom_handler import rom
 # 8-bit loads
 def ld_addr_reg(dest,src,inc=0): # ld [bc], a
     addr = dest.hi.hget(True) + dest.lo.hget(True)
-    memory.set(addr,src.hget())
+    memory.set(addr,src.iget())
     if inc==1:
         rg.HL.inc()
     elif inc==-1:
@@ -29,7 +29,7 @@ def ld_addr_arg():
     addr = rg.HL.hi.hget(True) + rg.HL.lo.hget(True)
     src = memory.get(rg.pc.iget())
     rg.pc.inc()
-    memory.set(addr,src)
+    memory.set(addr,src.iget())
     timer.tick(12)
 def ld_reg_reg(dest,src):          # ld b, b
     dest.set(src.hget())
@@ -40,7 +40,7 @@ def ld_addr_a():
     addr2 = memory.get(rg.pc.iget()).hget(True)
     rg.pc.inc()
     addr = addr1 + addr2
-    memory.set(addr,rg.AF.hi.hget())
+    memory.set(addr,rg.AF.hi.iget())
     timer.tick(16)
 def ld_a_addr():
     addr1 = memory.get(rg.pc.iget()).hget(True)
@@ -53,7 +53,7 @@ def ld_a_addr():
 def ldh_addr_a():
     addr = 'FF' + memory.get(rg.pc.iget()).hget(True)
     rg.pc.inc()
-    memory.set(addr,rg.AF.hi.hget())
+    memory.set(addr,rg.AF.hi.iget())
     timer.tick(12)
 def ldh_a_addr():
     addr = 'FF' + memory.get(rg.pc.iget()).hget(True)
@@ -62,7 +62,7 @@ def ldh_a_addr():
     timer.tick(12)
 def ldh_c_a():
     addr = 'FF' + rg.BC.lo.hget().hget(True)
-    memory.set(addr,rg.AF.hi.hget())
+    memory.set(addr,rg.AF.hi.iget())
     timer.tick(8)
 def ldh_a_c():
     addr = 'FF' + rg.BC.lo.hget().hget(True)

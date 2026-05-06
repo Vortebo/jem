@@ -43,10 +43,10 @@ class Membank:
 
     def address_adjust(self, address):
         loc = HexValue(address).iget()
-        print(f'Translated address is {loc}')
+        # print(f'Translated address is {loc}')
         start=0
         for i in range(len(self.sizes)):
-            print(f'Bank {i} starts at {start}')
+            # print(f'Bank {i} starts at {start}')
             if start <= loc < self.sizes[i] + start:
                 return loc - start, i
             start += self.sizes[i]
@@ -54,7 +54,7 @@ class Membank:
     
     def get(self, address):
         loc, bank = self.address_adjust(address)
-        print(f'Equivalent is {loc} in bank {bank}')
+        # print(f'Equivalent is {loc} in bank {bank}')
         if bank < 2:
             return rom.get(address)
         return HexValue(self.banks[bank][loc:loc+1].hex())
@@ -62,7 +62,7 @@ class Membank:
     def getrange(self, length):
         return rom.getrange(length)
 
-    def set(self, address, value):
+    def set(self, address, value: int):
         print(f'Attempting to set {value} at address 0x{address}')
         loc, bank = self.address_adjust(address)
         self.banks[bank][loc] = value
