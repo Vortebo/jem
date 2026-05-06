@@ -162,7 +162,8 @@ def daa():
     rg.cFlag = flagStates[1]
     timer.tick(4)
 def cpl():
-    rg.AF.hi.set(hex(~(rg.AF.hi.iget())))
+    result = hex(255 - rg.AF.hi.iget())
+    rg.AF.hi.set(result)
     rg.nFlag = True
     rg.hFlag = True
     timer.tick(4)
