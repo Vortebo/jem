@@ -98,8 +98,8 @@ class Register(HexValue):
         addr=self.hi.hget(True)+self.lo.hget(True)
         new_addr=HexValue(addr)
         new_addr.inc(True)
-        self.hi.set(new_addr.hget()[0:9])
-        self.lo.set(new_addr.hget()[9:16])
+        self.hi.set(new_addr.hget()[0:1])
+        self.lo.set(new_addr.hget()[2:3])
 
     def dec(self):
         addr=self.hi.hget(True)+self.lo.hget(True)
