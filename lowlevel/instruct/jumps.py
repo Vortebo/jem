@@ -9,7 +9,7 @@ def jp_addr():
     rg.pc.inc()
     dest2 = memory.get(rg.pc.hget())
     rg.pc.inc()
-    dest = dest1.hget() + dest2.hget()
+    dest = dest2.hget(True) + dest1.hget(True)
     print('destination is',dest)
     rg.pc.set(dest)
     timer.tick(16)
