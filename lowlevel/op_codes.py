@@ -109,6 +109,12 @@ optable = {
     'ea': partial(ld.ld_addr_a), # it's in the game
     'fa': partial(ld.ld_a_addr),
 
+    ####### 16-bit ld
+    '01': partial(ld.ld16_reg_val,rg.BC),
+    '11': partial(ld.ld16_reg_val,rg.DE),
+    '21': partial(ld.ld16_reg_val,rg.HL),
+    '31': partial(ld.ld16_reg_val,rg.SP),
+
     # yump
     'c3': partial(jp.jp_addr),
 

@@ -68,3 +68,13 @@ def ldh_a_c():
     addr = 'FF' + rg.BC.lo.hget().hget(True)
     rg.AF.hi.set(memory.get(addr))
     timer.tick(8)
+
+# 16-bit loads
+def ld16_reg_val(reg):
+    val1 = memory.get(rg.pc.hget(True))
+    rg.pc.inc()
+    val2 = memory.get(rg.pc.hget(True))
+    rg.pc.inc()
+    reg.hi.set(val2.hget()) # little endian?
+    reg.lo.set(val2.hget())
+    timer.tick(12)
