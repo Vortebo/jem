@@ -9,7 +9,7 @@ class ROM:
     def __init__(self):
         self.bank = 0
 
-    def load_rom(self, rom:bytearray):
+    def load_rom(self, rom):
         self.rom = rom
 
     def getNext(self):

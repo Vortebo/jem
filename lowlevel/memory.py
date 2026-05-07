@@ -50,7 +50,7 @@ class Membank:
             if start <= loc < self.sizes[i] + start:
                 return loc - start, i
             start += self.sizes[i]
-        return -1
+        raise LookupError("the loc? is wrong????")
     
     def get(self, address: HexValue):
         loc, bank = self.address_adjust(address)

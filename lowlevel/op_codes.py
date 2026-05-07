@@ -26,7 +26,7 @@ optable = {
     '2a': partial(ld.ld_reg_addr,rg.AF.hi,rg.HL,inc=1),
     '2e': partial(ld.ld_reg_arg,rg.HL.lo),
     '32': partial(ld.ld_addr_reg,rg.HL,rg.AF.hi,inc=-1),
-    '36': partial(ld.ld_addr_arg,rg.HL,elaps=12),
+    '36': partial(ld.ld_addr_arg),
     '3a': partial(ld.ld_reg_addr,rg.AF.hi,rg.HL,inc=-1),
     '3e': partial(ld.ld_reg_arg,rg.AF.hi),
     #
