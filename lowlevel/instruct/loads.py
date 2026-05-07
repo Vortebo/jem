@@ -2,7 +2,7 @@ import lowlevel.registers as rg
 from lowlevel.memory import memory
 from lowlevel.timer import timer
 from lowlevel.rom_handler import rom
-from lowlevel.hex_ops import HexValue
+from lowlevel.hex_ops import HexValue, Register
 
 # 8-bit loads
 def ld_addr_reg(dest,src,inc=0): # ld [bc], a
@@ -78,4 +78,26 @@ def ld16_reg_val(reg):
     rg.pc.inc()
     reg.hi.set(val2.hget()) # little endian?
     reg.lo.set(val1.hget())
+    timer.tick(12)
+def pop_reg(reg:Register):
+    addr = HexValue(rg.SP.hi.hget(True) + rg.SP.lo.hget(True))
+    reg.lo.set(memory.get(addr).hget())
+    rg.SP.inc()
+    addr = HexValue(rg.SP.hi.hget(True) + rg.SP.lo.hget(True))
+    reg.hi.set(memory.get(addr).hget())
+    rg.SP.inc()
+    timer.tick(12)
+def pop_af():
+    addr = HexValue(rg.SP.hi.hget(True) + rg.SP.lo.hget(True))
+    flags=memory.get(addr)
+    rg.AF.lo.set(flags.hget())
+    rg.SP.inc()
+    addr = HexValue(rg.SP.hi.hget(True) + rg.SP.lo.hget(True))
+    rg.AF.hi.set(memory.get(addr).hget())
+    rg.SP.inc()
+    flags=flags.bget()
+    rg.zFlag = int(flags[-1])
+    rg.nFlag = int(flags[-2])
+    rg.hFlag = int(flags[-3])
+    rg.cFlag = int(flags[-4])
     timer.tick(12)

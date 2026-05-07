@@ -114,6 +114,10 @@ optable = {
     '11': partial(ld.ld16_reg_val,rg.DE),
     '21': partial(ld.ld16_reg_val,rg.HL),
     '31': partial(ld.ld16_reg_val,rg.SP),
+    'c1': partial(ld.pop_reg,rg.BC),
+    'd1': partial(ld.pop_reg,rg.DE),
+    'e1': partial(ld.pop_reg,rg.HL),
+    'f1': partial(ld.pop_af),
 
     # yump
     'c3': partial(jp.jp_addr),
