@@ -25,7 +25,7 @@ class ROM:
         return result
     
     def get(self, address):
-        address = int(address,16)
+        address = address.iget()
         return HexValue(self.rom[(address):address+1].hex())
     
 rom=ROM()

@@ -5,9 +5,9 @@ from lowlevel.memory import memory
 
 # Jumps
 def jp_addr():
-    dest1 = memory.get(rg.pc.hget(True))
+    dest1 = memory.get(rg.pc)
     rg.pc.inc()
-    dest2 = memory.get(rg.pc.hget(True))
+    dest2 = memory.get(rg.pc)
     rg.pc.inc()
     dest = dest2.hget(True) + dest1.hget(True) # little endian.
     print('destination is',dest)

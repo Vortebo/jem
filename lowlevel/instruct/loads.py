@@ -2,10 +2,11 @@ import lowlevel.registers as rg
 from lowlevel.memory import memory
 from lowlevel.timer import timer
 from lowlevel.rom_handler import rom
+from lowlevel.hex_ops import HexValue
 
 # 8-bit loads
 def ld_addr_reg(dest,src,inc=0): # ld [bc], a
-    addr = dest.hi.hget(True) + dest.lo.hget(True)
+    addr = HexValue(dest.hi.hget(True) + dest.lo.hget(True))
     memory.set(addr,src.iget())
     if inc==1:
         rg.HL.inc()
@@ -13,7 +14,7 @@ def ld_addr_reg(dest,src,inc=0): # ld [bc], a
         rg.HL.dec()
     timer.tick(8)
 def ld_reg_addr(dest,src,inc=0): # ld a, [bc]
-    addr = src.hi.hget(True) + src.lo.hget(True)
+    addr = HexValue(src.hi.hget(True) + src.lo.hget(True))
     dest.set(memory.get(addr))
     if inc==1:
         rg.HL.inc()
@@ -21,60 +22,60 @@ def ld_reg_addr(dest,src,inc=0): # ld a, [bc]
         rg.HL.dec()
     timer.tick(8)
 def ld_reg_arg(dest):          # ld b, n8
-    src = memory.get(rg.pc.iget())
+    src = memory.get(rg.pc)
     rg.pc.inc()
-    dest.set(src)
+    dest.set(src.hget())
     timer.tick(8)
 def ld_addr_arg(): 
     addr = rg.HL.hi.hget(True) + rg.HL.lo.hget(True)
-    src = memory.get(rg.pc.iget())
+    src = memory.get(rg.pc)
     rg.pc.inc()
-    memory.set(addr,src.iget())
+    memory.set(HexValue(addr),src.iget())
     timer.tick(12)
 def ld_reg_reg(dest,src):          # ld b, b
     dest.set(src.hget())
     timer.tick(4)
 def ld_addr_a():
-    addr1 = memory.get(rg.pc.iget()).hget(True)
+    addr1 = memory.get(rg.pc).hget(True)
     rg.pc.inc()
-    addr2 = memory.get(rg.pc.iget()).hget(True)
+    addr2 = memory.get(rg.pc).hget(True)
     rg.pc.inc()
-    addr = addr1 + addr2
+    addr = HexValue(addr1 + addr2)
     memory.set(addr,rg.AF.hi.iget())
     timer.tick(16)
 def ld_a_addr():
-    addr1 = memory.get(rg.pc.iget()).hget(True)
+    addr1 = memory.get(rg.pc).hget(True)
     rg.pc.inc()
-    addr2 = memory.get(rg.pc.iget()).hget(True)
+    addr2 = memory.get(rg.pc).hget(True)
     rg.pc.inc()
-    addr = addr1 + addr2
-    rg.AF.hi.set(memory.get(addr))
+    addr = HexValue(addr1 + addr2)
+    rg.AF.hi.set(memory.get(addr).hget())
     timer.tick(16)
 def ldh_addr_a():
-    addr = 'FF' + memory.get(rg.pc.iget()).hget(True)
+    addr = HexValue('FF' + memory.get(rg.pc).hget(True))
     rg.pc.inc()
     memory.set(addr,rg.AF.hi.iget())
     timer.tick(12)
 def ldh_a_addr():
-    addr = 'FF' + memory.get(rg.pc.iget()).hget(True)
+    addr = HexValue('FF' + memory.get(rg.pc).hget(True))
     rg.pc.inc()
-    rg.AF.hi.set(memory.get(addr))
+    rg.AF.hi.set(memory.get(addr).hget())
     timer.tick(12)
 def ldh_c_a():
-    addr = 'FF' + rg.BC.lo.hget().hget(True)
+    addr = HexValue('FF' + rg.BC.lo.hget(True))
     memory.set(addr,rg.AF.hi.iget())
     timer.tick(8)
 def ldh_a_c():
-    addr = 'FF' + rg.BC.lo.hget().hget(True)
-    rg.AF.hi.set(memory.get(addr))
+    addr = HexValue('FF' + rg.BC.lo.hget(True))
+    rg.AF.hi.set(memory.get(addr).hget())
     timer.tick(8)
 
 # 16-bit loads
 def ld16_reg_val(reg):
-    val1 = memory.get(rg.pc.hget(True))
+    val1 = memory.get(rg.pc)
     rg.pc.inc()
-    val2 = memory.get(rg.pc.hget(True))
+    val2 = memory.get(rg.pc)
     rg.pc.inc()
     reg.hi.set(val2.hget()) # little endian?
-    reg.lo.set(val2.hget())
+    reg.lo.set(val1.hget())
     timer.tick(12)

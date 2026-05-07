@@ -45,8 +45,8 @@ def mod_addr(func):
     '''
     Modcrement the byte pointed to by [HL] by 1
     '''
-    addr = rg.HL.hi.hget() + rg.HL.lo.hget()
-    memory.set(addr,func(memory.get(addr),HexValue(hex(1))))
+    addr = HexValue(rg.HL.hi.hget() + rg.HL.lo.hget())
+    memory.set(addr,func(memory.get(addr),HexValue(hex(1))).iget())
     timer.tick(12)
 def mod_a_reg(func,reg,pluscarry=False,comp=False):
     new_val = func(rg.AF.hi,reg,True,pluscarry)
@@ -54,13 +54,13 @@ def mod_a_reg(func,reg,pluscarry=False,comp=False):
         rg.AF.hi.set(new_val)
     timer.tick(4)
 def mod_a_addr(func,pluscarry=False,comp=False):
-    addr = rg.HL.hi.hget() + rg.HL.lo.hget()
+    addr = HexValue(rg.HL.hi.hget() + rg.HL.lo.hget())
     new_val = func(rg.AF.hi,memory.get(addr),True,pluscarry)
     if not comp:
         rg.AF.hi.set(new_val)
     timer.tick(8)
 def mod_a_arg(func,pluscarry=False,comp=False):
-    src = memory.get(rg.pc.iget())
+    src = memory.get(rg.pc)
     rg.pc.inc()
     new_val = func(rg.AF.hi,src,True,pluscarry)
     if not comp:
@@ -75,7 +75,7 @@ def and_reg(reg):
     rg.cFlag = False
     timer.tick(4)
 def and_addr():
-    addr = rg.HL.hi.hget() + rg.HL.lo.hget()
+    addr = HexValue(rg.HL.hi.hget() + rg.HL.lo.hget())
     rg.AF.hi.set(hex(rg.AF.hi.iget() & memory.get(addr).iget()))
     rg.zFlag = True if rg.AF.hi.iget() == 0 else False
     rg.nFlag = False
@@ -83,7 +83,7 @@ def and_addr():
     rg.cFlag = False
     timer.tick(8)
 def and_arg():
-    src = memory.get(rg.pc.iget())
+    src = memory.get(rg.pc)
     rg.pc.inc()
     rg.AF.hi.set(hex(rg.AF.hi.iget() & src.iget()))
     rg.zFlag = True if rg.AF.hi.iget() == 0 else False
@@ -99,7 +99,7 @@ def xor_reg(reg):
     rg.cFlag = False
     timer.tick(4)
 def xor_addr():
-    addr = rg.HL.hi.hget() + rg.HL.lo.hget()
+    addr = HexValue(rg.HL.hi.hget() + rg.HL.lo.hget())
     rg.AF.hi.set(hex(rg.AF.hi.iget() ^ memory.get(addr).iget()))
     rg.zFlag = True if rg.AF.hi.iget() == 0 else False
     rg.nFlag = False
@@ -107,7 +107,7 @@ def xor_addr():
     rg.cFlag = False
     timer.tick(8)
 def xor_arg():
-    src = memory.get(rg.pc.iget())
+    src = memory.get(rg.pc)
     rg.pc.inc()
     rg.AF.hi.set(hex(rg.AF.hi.iget() ^ src.iget()))
     rg.zFlag = True if rg.AF.hi.iget() == 0 else False
@@ -123,7 +123,7 @@ def or_reg(reg):
     rg.cFlag = False
     timer.tick(4)
 def or_addr():
-    addr = rg.HL.hi.hget() + rg.HL.lo.hget()
+    addr = HexValue(rg.HL.hi.hget() + rg.HL.lo.hget())
     rg.AF.hi.set(hex(rg.AF.hi.iget() | memory.get(addr).iget()))
     rg.zFlag = True if rg.AF.hi.iget() == 0 else False
     rg.nFlag = False
@@ -131,7 +131,7 @@ def or_addr():
     rg.cFlag = False
     timer.tick(8)
 def or_arg():
-    src = memory.get(rg.pc.iget())
+    src = memory.get(rg.pc)
     rg.pc.inc()
     rg.AF.hi.set(hex(rg.AF.hi.iget() | src.iget()))
     rg.zFlag = True if rg.AF.hi.iget() == 0 else False
@@ -148,14 +148,14 @@ def daa():
             adjust = adjust + 6
         if rg.cFlag:
             adjust = adjust + int('60',16)
-        rg.AF.hi.set(sub8(rg.AF.hi,HexValue(hex(adjust)),False,False))
+        rg.AF.hi.set(sub8(rg.AF.hi,HexValue(hex(adjust)),False,False).hget())
     else:
         if rg.hFlag or (rg.AF.hi.iget() & int('F',16))>9:
             adjust = adjust + 6
         if rg.cFlag or rg.AF.hi.iget() > int('99',16):
             adjust = adjust + int('60',16)
             flagStates[1] = True
-        rg.AF.hi.set(add8(rg.AF.hi,HexValue(hex(adjust)),False,False))
+        rg.AF.hi.set(add8(rg.AF.hi,HexValue(hex(adjust)),False,False).hget())
     rg.zFlag = True if rg.AF.hi.iget() == 0 else False
     rg.nFlag = flagStates[0]
     rg.hFlag = False
