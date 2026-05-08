@@ -5,16 +5,16 @@ from lowlevel.rom_handler import rom
 from lowlevel.hex_ops import HexValue, Register
 
 # 8-bit loads
-def ld_addr_reg(dest,src,inc=0): # ld [bc], a
-    addr = HexValue(dest.hi.hget(True) + dest.lo.hget(True))
+def ld_addr_reg(dest: Register,src,inc=0): # ld [bc], a
+    addr = dest.address()
     memory.set(addr,src.iget())
     if inc==1:
         rg.HL.inc()
     elif inc==-1:
         rg.HL.dec()
     timer.tick(8)
-def ld_reg_addr(dest,src,inc=0): # ld a, [bc]
-    addr = HexValue(src.hi.hget(True) + src.lo.hget(True))
+def ld_reg_addr(dest,src: Register,inc=0): # ld a, [bc]
+    addr = src.address()
     dest.set(memory.get(addr))
     if inc==1:
         rg.HL.inc()
@@ -27,10 +27,10 @@ def ld_reg_arg(dest):          # ld b, n8
     dest.set(src.hget())
     timer.tick(8)
 def ld_addr_arg(): 
-    addr = rg.HL.hi.hget(True) + rg.HL.lo.hget(True)
+    addr = rg.HL.address()
     src = memory.get(rg.pc)
     rg.pc.inc()
-    memory.set(HexValue(addr),src.iget())
+    memory.set(addr,src.iget())
     timer.tick(12)
 def ld_reg_reg(dest,src):          # ld b, b
     dest.set(src.hget())
@@ -80,19 +80,19 @@ def ld16_reg_val(reg):
     reg.lo.set(val1.hget())
     timer.tick(12)
 def pop_reg(reg:Register):
-    addr = HexValue(rg.SP.hi.hget(True) + rg.SP.lo.hget(True))
+    addr = rg.SP.address()
     reg.lo.set(memory.get(addr).hget())
     rg.SP.inc()
-    addr = HexValue(rg.SP.hi.hget(True) + rg.SP.lo.hget(True))
+    addr = rg.SP.address()
     reg.hi.set(memory.get(addr).hget())
     rg.SP.inc()
     timer.tick(12)
 def pop_af():
-    addr = HexValue(rg.SP.hi.hget(True) + rg.SP.lo.hget(True))
+    addr = rg.SP.address()
     flags=memory.get(addr)
     rg.AF.lo.set(flags.hget())
     rg.SP.inc()
-    addr = HexValue(rg.SP.hi.hget(True) + rg.SP.lo.hget(True))
+    addr = rg.SP.address()
     rg.AF.hi.set(memory.get(addr).hget())
     rg.SP.inc()
     flags=flags.bget()
