@@ -118,6 +118,10 @@ optable = {
     'd1': partial(ld.pop_reg,rg.DE),
     'e1': partial(ld.pop_reg,rg.HL),
     'f1': partial(ld.pop_af),
+    'c5': partial(ld.push_reg,rg.BC),
+    'd5': partial(ld.push_reg,rg.DE),
+    'e5': partial(ld.push_reg,rg.HL),
+    'f5': partial(ld.push_reg,rg.AF),
 
     # yump
     'c3': partial(jp.jp_addr),

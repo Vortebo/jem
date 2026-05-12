@@ -101,3 +101,11 @@ def pop_af():
     rg.hFlag = int(flags[-3])
     rg.cFlag = int(flags[-4])
     timer.tick(12)
+def push_reg(reg:Register): #TODO: the RGBDS docs have weird example code for AF that another source doesn't back up shrug
+    rg.SP.dec()
+    addr =  rg.SP.address()
+    memory.set(addr,reg.hi.iget())
+    rg.SP.dec()
+    addr =  rg.SP.address()
+    memory.set(addr,reg.lo.iget())
+    timer.tick(16)
